@@ -1,5 +1,6 @@
 ## Taste Dockerfile
 
+![alt tag](exoter_docker_logo.jpg)
 
 This repository contains **Dockerfile** of [Taste](http://taste.tuxfamily.org/wiki/index.php?title=Main_Page) for
 [Docker](https://www.docker.com/)'s [automated
