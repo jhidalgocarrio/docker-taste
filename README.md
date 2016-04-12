@@ -19,12 +19,13 @@ public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 2. Download [automated build](https://registry.hub.docker.com/u/exoter/taste/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull exoter/taste
 
-   (alternatively, you can build an image from Dockerfile: `docker build github.com/exoter-rover/docker-taste`-t exoter/taste .)
-
+   (alternatively, you can build an image from Dockerfile: `docker build -t exoter/taste github.com/exoter-rover/docker-taste )
 
 ### Usage
 
     docker run -it --rm exoter/taste:14.04
 
-    You can also use the script file docker-taste-create.sh as following
+    You can also use the script file docker-taste-create.sh as following:
+    sh docker-run-taste.sh . "-h docker"
+
 
