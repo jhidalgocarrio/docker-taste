@@ -25,7 +25,7 @@ public [Docker Hub Registry](https://registry.hub.docker.com/).
 
     docker run -it --rm exoter/taste:14.04
 
-    You can also use the script file docker-taste-create.sh as following:
+    You can also use the script file docker-run-taste.sh as following:
     sh docker-run-taste.sh . "-h docker"
 
 
