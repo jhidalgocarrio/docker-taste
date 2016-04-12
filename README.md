@@ -19,7 +19,7 @@ public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 2. Download [automated build](https://registry.hub.docker.com/u/exoter/taste/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull exoter/taste
 
-   (alternatively, you can build an image from Dockerfile: `docker build -t exoter/taste github.com/exoter-rover/docker-taste )
+   (alternatively, you can build an image from Dockerfile: `docker build -t exoter/taste:14.04 github.com/exoter-rover/docker-taste )
 
 ### Usage
 
