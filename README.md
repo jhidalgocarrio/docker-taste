@@ -28,4 +28,8 @@ public [Docker Hub Registry](https://registry.hub.docker.com/).
     You can also use the script file docker-run-taste.sh as following:
     sh docker-run-taste.sh . "-h docker"
 
+    I needed to reinstall binfmt-support (my x86 host ubuntu)
+    $sudo apt-get update
+    $sudo apt-get install binfmt-support
 
+    then run $sh docker-run-taste.sh . "-h docker" again
