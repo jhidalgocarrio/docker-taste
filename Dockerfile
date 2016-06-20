@@ -88,7 +88,7 @@ RUN mkdir /home/taste/tool-inst/bin
 
 # Define some alias and terminal prompt
 RUN echo alias kate=\'vim\' >> /home/taste/.bashrc
-RUN echo export PS1="\"\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \\$\[\033[00m\]" \" >> /home/taste/.bashrc
+RUN echo export PS1="\"\[\033[01;32m\]\u@\h\[\033[01;34m\]:\w\\$\[\033[00m\]" \" >> /home/taste/.bashrc
 
 # Define some environmental variables
 RUN echo export PREFIX=~/tool-inst >> /home/taste/.bashrc
