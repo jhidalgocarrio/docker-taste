@@ -159,6 +159,7 @@ RUN svn co --non-interactive --trust-server-cert https://tecsw.estec.esa.int/svn
 COPY taste-tool-src_stable.diff $HOME/tool-src/
 WORKDIR $HOME/tool-src
 RUN patch -p0 -i taste-tool-src_stable.diff
+RUN . $HOME/.bashrc
 RUN make
 
 ##################### INSTALLATION END #####################
