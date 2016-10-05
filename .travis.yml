@@ -9,7 +9,7 @@ services:
   - docker
 
 install:
-    - docker build --build-arg BUILD_MODULE="base" -t taste/sargon:14.04 -f Dockerfile .
+    - docker build -t taste/sargon:14.04 -f Dockerfile .
 
 notifications:
     email:
