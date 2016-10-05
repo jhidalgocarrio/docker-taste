@@ -1,0 +1,198 @@
+Index: DMT/smp2/exportsmp2.py
+===================================================================
+--- DMT/smp2/exportsmp2.py	(revision 8022)
++++ DMT/smp2/exportsmp2.py	(working copy)
+@@ -248,10 +248,10 @@
+ def InvokeAsn1Scc():
+     banner("Compiling ASN.1 grammar")
+     os.chdir(g_absOutputDir)
+-    mysystem("asn1.exe -ACND dataview-uniq.asn")
++    mysystem("mono asn1.exe -ACND dataview-uniq.asn")
+     mkdirIfMissing("auto-src")
+     os.chdir("auto-src")
+-    mysystem("asn1.exe -c -uPER -typePrefix asn1Scc -ACN ../dataview-uniq.asn")
++    mysystem("mono asn1.exe -c -uPER -typePrefix asn1Scc -ACN ../dataview-uniq.asn")
+ 
+     # Create message printers, for use when displaying inner messages with MSCs
+     msgPrinter = os.getenv("DMT")+"/asn2dataModel/msgPrinter.py"
+Index: DMT/smp2/importsmp2.py
+===================================================================
+--- DMT/smp2/importsmp2.py	(revision 8022)
++++ DMT/smp2/importsmp2.py	(working copy)
+@@ -658,10 +658,10 @@
+ def InvokeAsn1Scc():
+     banner("Compiling ASN.1 grammar into type declarations")
+     os.chdir(g_absOutputDir)
+-    mysystem("asn1.exe -ACND dataview-uniq.asn")
++    mysystem("mono asn1.exe -ACND dataview-uniq.asn")
+     mkdirIfMissing("auto-src")
+     os.chdir("auto-src")
+-    mysystem("asn1.exe -c -uPER -typePrefix asn1Scc -ACN ../dataview-uniq.asn")
++    mysystem("mono asn1.exe -c -uPER -typePrefix asn1Scc -ACN ../dataview-uniq.asn")
+ 
+ 
+ def main():
+Index: doc/asn1-protocol/asn1-sample/Makefile
+===================================================================
+--- doc/asn1-protocol/asn1-sample/Makefile	(revision 8022)
++++ doc/asn1-protocol/asn1-sample/Makefile	(working copy)
+@@ -12,12 +12,12 @@
+ generate:
+ 	mkdir -p $(ASN1_C_DIR)
+ 	mkdir -p $(ACN_C_DIR)
+-	asn1.exe -o $(ASN1_C_DIR) -uPER -c protocol.asn
+-	asn1.exe -o $(ACN_C_DIR) -ACN -c protocol.acn protocol.asn
++	mono asn1.exe -o $(ASN1_C_DIR) -uPER -c protocol.asn
++	mono asn1.exe -o $(ACN_C_DIR) -ACN -c protocol.acn protocol.asn
+ 	mkdir -p $(ASN1_ADA_DIR)
+ 	mkdir -p $(ACN_ADA_DIR)
+-	asn1.exe -o $(ASN1_ADA_DIR) -uPER -Ada protocol.asn
+-	asn1.exe -o $(ACN_ADA_DIR) -ACN -Ada protocol.acn protocol.asn
++	mono asn1.exe -o $(ASN1_ADA_DIR) -uPER -Ada protocol.asn
++	mono asn1.exe -o $(ACN_ADA_DIR) -ACN -Ada protocol.acn protocol.asn
+ 
+ compile:
+ 	$(CC) $(CFLAGS) -I$(ACN_C_DIR) -o encode src/encode.c $(ACN_C_DIR)/asn1crt.c $(ACN_C_DIR)/protocol.c $(ACN_C_DIR)/acn.c $(ACN_C_DIR)/ber.c $(ACN_C_DIR)/xer.c $(ACN_C_DIR)/real.c
+Index: misc/experiments/drivers-asn1/Makefile
+===================================================================
+--- misc/experiments/drivers-asn1/Makefile	(revision 8022)
++++ misc/experiments/drivers-asn1/Makefile	(working copy)
+@@ -6,7 +6,7 @@
+ 
+ all:
+ 	mkdir -p output
+-	asn1.exe -c -typePrefix __po_hi_c_ -o output $(ASNFILES)
++	mono asn1.exe -c -typePrefix __po_hi_c_ -o output $(ASNFILES)
+ 
+ test-pohic:
+ 	( cd test-po-hi-c && make clean generate build)
+Index: ocarina/src/backends/ocarina-backends-po_hi_ada.adb
+===================================================================
+--- ocarina/src/backends/ocarina-backends-po_hi_ada.adb	(revision 8022)
++++ ocarina/src/backends/ocarina-backends-po_hi_ada.adb	(working copy)
+@@ -323,7 +323,7 @@
+       Write_Eol;
+       Write_Line ("generate-asn1-files: $(ASN_SOURCES)");
+       Write_Char (ASCII.HT);
+-      Write_Line (" asn1.exe -Ada -uPER $(ASN_SOURCES)");
++      Write_Line (" mono asn1.exe -Ada -uPER $(ASN_SOURCES)");
+    end PolyORB_HI_Ada_Makefile;
+ 
+    -------------------------------------
+Index: orchestrator/src/assert-builder-ocarina.py
+===================================================================
+--- orchestrator/src/assert-builder-ocarina.py	(revision 8022)
++++ orchestrator/src/assert-builder-ocarina.py	(working copy)
+@@ -1543,7 +1543,7 @@
+     '''Invokes asn2aadlPlus to create AADL DataViews'''
+     g_stageLog.info("Creating AADL dataviews")
+     # Create a "cropped" version of the input ASN.1 grammar, one without the TASTE directives
+-    mysystem("\"$DMT/asn1scc/taste-extract-asn-from-design.exe\" -i \"%s\" -k \"%s\" -c \"%s\"" % (i_aadlFile, asn1Grammar, acnFile))
++    mysystem("mono \"$DMT/asn1scc/taste-extract-asn-from-design.exe\" -i \"%s\" -k \"%s\" -c \"%s\"" % (i_aadlFile, asn1Grammar, acnFile))
+     mysystem("cp \"" + asn1Grammar + "\" . 2>/dev/null || exit 0")
+     mysystem("cp \"" + acnFile + "\" . 2>/dev/null || exit 0")
+     if os.path.getsize(acnFile):
+@@ -1559,7 +1559,7 @@
+ 
+     # Now create the full (non-cropped) ASN.1 grammar, since the DataView AADL we will create below must include ALL types
+     # (i.e. including TASTE-Directives)
+-    mysystem("\"$DMT/asn1scc/taste-extract-asn-from-design.exe\" -i \"%s\" -j \"%s\"" % (i_aadlFile, asn1Grammar))
++    mysystem("mono \"$DMT/asn1scc/taste-extract-asn-from-design.exe\" -i \"%s\" -j \"%s\"" % (i_aadlFile, asn1Grammar))
+ 
+     # Create the DataView AADL
+     newGrammar = False
+@@ -1587,7 +1587,7 @@
+         sys.stdout.flush()
+ 
+     # And now, re-create the "cropped" version of the input ASN.1 grammar, that everyone else uses
+-    mysystem("\"$DMT/asn1scc/taste-extract-asn-from-design.exe\" -i \"%s\" -k \"%s\"" % (i_aadlFile, asn1Grammar))
++    mysystem("mono \"$DMT/asn1scc/taste-extract-asn-from-design.exe\" -i \"%s\" -k \"%s\"" % (i_aadlFile, asn1Grammar))
+     return acnFile, newGrammar
+ 
+ 
+Index: po-hi-c/share/make/Makefile.common
+===================================================================
+--- po-hi-c/share/make/Makefile.common	(revision 8022)
++++ po-hi-c/share/make/Makefile.common	(working copy)
+@@ -138,7 +138,7 @@
+ ifeq ($(USE_ASN1_DEPLOYMENT), yes)
+ generate-asn1-deployment:
+ 	if [ ! -d ../asn-types ]; then mkdir -p ../asn-types ; fi
+-	asn1.exe -c -uPER $(ASN_SOURCES) -o ../asn-types
++	mono asn1.exe -c -uPER $(ASN_SOURCES) -o ../asn-types
+ 	for f in real.o asn1crt.o acn.o ber.o xer.o; do \
+ 	   c_file="`basename $$f .o`.c"; \
+ 	      $(CC) $(INCLUDE) $(CFLAGS) -c -o $$f ../asn-types/$$c_file || exit 1 ; \
+Index: po-hi-c/src/drivers/configuration/Makefile.am
+===================================================================
+--- po-hi-c/src/drivers/configuration/Makefile.am	(revision 8022)
++++ po-hi-c/src/drivers/configuration/Makefile.am	(working copy)
+@@ -1,5 +1,7 @@
+ AUTOMAKE_OPTIONS = no-dependencies
+ 
++ASN1_EXE := mono ${ASN1SCC}
++
+ C_FILES =   $(srcdir)/1553.c       \
+             $(srcdir)/ip.c         \
+             $(srcdir)/serial.c     \
+@@ -14,7 +16,7 @@
+ csrc = ${shell $(CYGPATH_U) '$(OCARINA_RUNTIME)/polyorb-hi-c/src/drivers/configuration'}
+ 
+ $(srcdir)/1553.c:
+-	asn1.exe -c -typePrefix __po_hi_c_ 1553.asn
++	$(ASN1_EXE) -c -typePrefix __po_hi_c_ 1553.asn
+ 	sed -e 's/Mil\_1553\_Conf\_T/mil\_1553\_conf\_t/g' 1553.h > 1553new.h
+ 	mv 1553new.h 1553.h
+ 	echo "#if (defined (__PO_HI_NEED_DRIVER_1553_RASTA))\n" > 1553new.c
+@@ -25,7 +27,7 @@
+ 	mv asn1crt.h ../../../include/drivers/configuration/
+ 
+ $(srcdir)/spacewire.c:
+-	asn1.exe -c -typePrefix __po_hi_c_ spacewire.asn
++	$(ASN1_EXE) -c -typePrefix __po_hi_c_ spacewire.asn
+ 	sed -e 's/Spacewire\_Conf\_T/spacewire\_conf\_t/g' spacewire.h > spacewirenew.h
+ 	mv spacewirenew.h spacewire.h
+ 	echo "#if (defined (__PO_HI_NEED_DRIVER_SPACEWIRE_RASTA))\n" > spacewirenew.c
+@@ -36,7 +38,7 @@
+ 	mv asn1crt.h ../../../include/drivers/configuration/
+ 
+ $(srcdir)/ip.c:
+-	asn1.exe -c -typePrefix __po_hi_c_ ip.asn
++	$(ASN1_EXE) -c -typePrefix __po_hi_c_ ip.asn
+ 	mv asn1crt.h ../../../include/drivers/configuration/
+ 	sed -e 's/IP\_Conf\_T/ip\_conf\_t/g' ip.h > ipnew.h
+ 	mv ipnew.h ip.h
+@@ -47,7 +49,7 @@
+ 	mv ip.h ../../../include/drivers/configuration/
+ 
+ $(srcdir)/serial.c:
+-	asn1.exe -c -typePrefix __po_hi_c_ serial.asn
++	$(ASN1_EXE) -c -typePrefix __po_hi_c_ serial.asn
+ 	sed -e 's/Serial\_Conf\_T/serial\_conf\_t/g' serial.h > serialnew.h
+ 	mv serialnew.h serial.h
+ 	echo "#if (defined (__PO_HI_NEED_DRIVER_SERIAL_LINUX) || defined (__PO_HI_NEED_DRIVER_SERIAL_LINUX_RECEIVER) || defined (__PO_HI_NEED_DRIVER_SERIAL_LINUX_SENDER) || defined (__PO_HI_NEED_DRIVER_SERIAL_RASTA) || defined (__PO_HI_NEED_DRIVER_SERIAL_LEON) || defined (__PO_HI_NEED_DRIVER_SERIAL_LEON_SENDER) || defined (__PO_HI_NEED_DRIVER_SERIAL_LEON_RECEIVER))\n" > serialnew.c
+Index: testSuites/Regression_AADLv2/Demo_TrafficLight_OG_NestedStates/trafficlight/Makefile
+===================================================================
+--- testSuites/Regression_AADLv2/Demo_TrafficLight_OG_NestedStates/trafficlight/Makefile	(revision 8022)
++++ testSuites/Regression_AADLv2/Demo_TrafficLight_OG_NestedStates/trafficlight/Makefile	(working copy)
+@@ -5,7 +5,7 @@
+ 
+ 
+ compile: generate-code
+-	asn1.exe -Ada dataview-uniq.asn -typePrefix asn1Scc -equal
++	mono asn1.exe -Ada dataview-uniq.asn -typePrefix asn1Scc -equal
+ 	gnatmake -c *.adb
+ 	#gcc -c test.c
+ 	gnatbind -n trafficlight.ali
+Index: testSuites/Regression_AADLv2/Demo_TrafficLight_OG_NestedStates/trafficlight/makelib.sh
+===================================================================
+--- testSuites/Regression_AADLv2/Demo_TrafficLight_OG_NestedStates/trafficlight/makelib.sh	(revision 8022)
++++ testSuites/Regression_AADLv2/Demo_TrafficLight_OG_NestedStates/trafficlight/makelib.sh	(working copy)
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ 
+-asn1.exe -Ada dataview-uniq.asn -typePrefix asn1scc
++mono asn1.exe -Ada dataview-uniq.asn -typePrefix asn1scc
+ gnatmake *.adb
+ gnatbind -n -Llibtrafficlight trafficlight
+ gnatmake -c b~trafficlight.adb
