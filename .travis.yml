@@ -1,0 +1,16 @@
+sudo: required
+
+language: bash
+
+compiler:
+    - gcc
+
+services:
+  - docker
+
+install:
+    - docker build --build-arg BUILD_MODULE="base" -t taste/sargon:14.04 -f Dockerfile .
+
+notifications:
+    email:
+        - havyhidalgo@gmail.com
