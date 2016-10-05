@@ -7,6 +7,7 @@ This repository contains **Dockerfile** of [Taste](http://taste.tuxfamily.org/wi
 build](https://registry.hub.docker.com/u/exoter/taste/) published to the
 public [Docker Hub Registry](https://registry.hub.docker.com/).
 
+[![Build Status](https://travis-ci.org/exoter-rover/docker-taste.svg?branch=master)](https://travis-ci.org/exoter-rover/docker-taste)
 
 ### Base Docker Image
 
