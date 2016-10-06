@@ -11,20 +11,20 @@ public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 ### Base Docker Image
 
-* [ubuntu:14.04](https://hub.docker.com/r/i386/ubuntu/)
+* [i386/ubuntu:14.04](https://hub.docker.com/r/i386/ubuntu/)
 
 
 ### Installation
 
 1. Install [Docker](https://www.docker.com/).
 
-2. Download [automated build](https://registry.hub.docker.com/u/exoter/taste/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull exoter/taste
+2. Download [automated build](https://registry.hub.docker.com/u/exoter/taste/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull taste/sargon
 
-   (alternatively, you can build an image from Dockerfile: `docker build -t exoter/taste:14.04 github.com/exoter-rover/docker-taste )
+    (alternatively, you can build an image from Dockerfile: `docker build -t taste/sargon:14.04 github.com/exoter-rover/docker-taste )
 
 ### Usage
 
-    docker run -it --rm exoter/taste:14.04
+    docker run -it --rm taste/sargon:14.04
 
     You can also use the script file docker-run-taste.sh as following:
     sh docker-run-taste.sh . "-h docker"
