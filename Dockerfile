@@ -160,7 +160,7 @@ COPY taste-tool-src_stable.diff $HOME/tool-src/
 WORKDIR $HOME/tool-src
 RUN patch -p0 -i taste-tool-src_stable.diff
 RUN . $HOME/.bashrc
-RUN VERBOSE=1 make -j1
+RUN make; exit 0
 RUN cat /tmp/buildlog
 
 ##################### INSTALLATION END #####################
