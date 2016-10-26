@@ -10,4 +10,4 @@ docker run -ti -P \
     -v /usr/lib/nvidia-340-updates:/usr/lib/nvidia-340-updates \
     --name taste_container \
     --env="DISPLAY" \
-    --env="QT_X11_NO_MITSHM=1" -e DSUPPORT=1 $2 taste/sargon:14.04
+    --env="QT_X11_NO_MITSHM=1" -e DSUPPORT=1 $2 jhidalgocarrio/taste:14.04

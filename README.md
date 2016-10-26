@@ -18,13 +18,13 @@ public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 1. Install [Docker](https://www.docker.com/).
 
-2. Download [automated build](https://registry.hub.docker.com/u/exoter/taste/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull taste/sargon
+2. Download [automated build](https://registry.hub.docker.com/u/exoter/taste/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull jhidalgocarrio/taste
 
-    (alternatively, you can build an image from Dockerfile: `docker build -t taste/sargon:14.04 github.com/exoter-rover/docker-taste )
+    (alternatively, you can build an image from Dockerfile: `docker build -t jhidalgocarrio/taste:14.04 github.com/exoter-rover/docker-taste )
 
 ### Usage
 
-    docker run -it --rm taste/sargon:14.04
+    docker run -it --rm jhidalgocarrio/taste:14.04
 
     You can also use the script file docker-run-taste.sh as following:
     sh docker-run-taste.sh . "-h docker"
