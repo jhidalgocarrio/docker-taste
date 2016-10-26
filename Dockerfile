@@ -81,6 +81,7 @@ RUN . $HOME/assert_env.sh
 RUN sudo mkdir -p /opt/Ellidiss-TASTE-linux/config/
 RUN sudo chmod 777 /opt/Ellidiss-TASTE-linux/config/
 RUN sudo chmod 777 /opt/Ellidiss-TASTE-linux/
+RUN mkdir /opt/Ellidiss-TASTE-linux/config/externalTools
 
 # Install python packages
 RUN pip install --user enum34
@@ -97,6 +98,7 @@ RUN echo export PATH=\$HOME/tool-inst/bin:"\$PATH" >> $HOME/.bashrc
 RUN echo export PATH=\$PREFIX/share/OG:\$PREFIX/share/aadl2glueC:$PREFIX/share/asn2aadlPlus:\$PREFIX/share/asn1scc:\$PREFIX/share/asn2dataModel:"\$PATH" >> $HOME/.bashrc
 RUN echo export GIT_SSL_NO_VERIFY=1 >> $HOME/.bashrc
 RUN echo export DISABLE_MULTICORE_CHECK=true >> $HOME/.bashrc
+RUN echo export ocarina-config=\$HOME/tool-inst/bin/ocarina-config >> $HOME/.bashrc
 
 
 # Define some alias and terminal prompt
@@ -156,9 +158,9 @@ COPY 881c66f88fd3a39b27ff6b842d5c079b $HOME/.subversion/auth/svn.ssl.server/
 # Download taste from version control system
 # TO-DO: Change for git checkout
 RUN svn co --non-interactive --trust-server-cert https://tecsw.estec.esa.int/svn/taste/branches/stable $HOME/tool-src
-COPY taste-tool-src_stable.diff $HOME/tool-src/
+COPY taste-tool-src_stable_v4.diff $HOME/tool-src/
 WORKDIR $HOME/tool-src
-RUN patch -p0 -i taste-tool-src_stable.diff
+RUN patch -p0 -i taste-tool-src_stable_v4.diff
 RUN . $HOME/.bashrc
 RUN make; exit 0
 RUN cat /tmp/buildlog
