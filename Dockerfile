@@ -19,14 +19,14 @@ ENV TERM linux
 RUN ln -s $HOME/tool-inst /opt/ocarina-2.0w-suite-x86-linux-2016.svn
 RUN ln -s /opt/DMT-Tools /opt/DMT
 
+ENV TZ=Europe/Berlin
+RUN sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Update the current system
 RUN sudo apt-get update
 
 # Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
 RUN echo "#!/bin/sh\nexit 0" >> /usr/sbin/policy-rc.d
-
-# Upgrade the current system
-RUN DEBIAN_FRONTEND=noninteractive && sudo apt-get upgrade -y -q
 
 #  Installing required packages:
 #  There are some warnings (in red) that show up during the build. You can hide
@@ -35,7 +35,7 @@ RUN DEBIAN_FRONTEND=noninteractive && sudo apt-get upgrade -y -q
 RUN DEBIAN_FRONTEND=noninteractive &&\
             sudo apt-get install -y -q subversion libgtk2-gladexml-perl xpdf libgnome2-perl xterm\
             libxml-parser-perl libxml-libxml-perl libgtk2-perl libfile-copy-recursive-perl\
-            nedit zip sudo libxml-libxml-simple-perl libbonoboui2-0 libgnome2-0 libgnomeui-0\
+            nedit zip libxml-libxml-simple-perl libbonoboui2-0 libgnome2-0 libgnomeui-0\
             libgnomevfs2-0  libgnome2-vfs-perl libgnomevfs2-common python-pexpect\
             libxenomai-dev xenomai-runtime python-gtk2-dev gtkwave libdbd-sqlite3-perl\
             libdbi-perl libsqlite3-dev sqlite3 xmldiff libxml2-dev qemu-system wmctrl\
