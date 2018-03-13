@@ -4,10 +4,10 @@
 
 This repository contains **Dockerfile** of [Taste](http://taste.tuxfamily.org/wiki/index.php?title=Main_Page) for
 [Docker](https://www.docker.com/)'s [automated
-build](https://registry.hub.docker.com/u/exoter/taste/) published to the
+build](https://registry.hub.docker.com/u/jhidalgocarrio/taste/) published to the
 public [Docker Hub Registry](https://registry.hub.docker.com/).
 
-[![Build Status](https://travis-ci.org/exoter-rover/docker-taste.svg?branch=master)](https://travis-ci.org/exoter-rover/docker-taste)
+[![Build Status](https://travis-ci.org/jhidalgocarrio/docker-taste.svg?branch=master)](https://travis-ci.org/jhidalgocarrio/docker-taste)
 
 ### Base Docker Image
 
@@ -18,9 +18,9 @@ public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 1. Install [Docker](https://www.docker.com/).
 
-2. Download [automated build](https://registry.hub.docker.com/u/exoter/taste/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull jhidalgocarrio/taste
+2. Download [automated build](https://registry.hub.docker.com/u/jhidalgocarrio/taste/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull jhidalgocarrio/taste
 
-    (alternatively, you can build an image from Dockerfile: `docker build -t jhidalgocarrio/taste:14.04 github.com/exoter-rover/docker-taste )
+    (alternatively, you can build an image from Dockerfile: `docker build -t jhidalgocarrio/taste:14.04 github.com/jhidalgocarrio/docker-taste )
 
 ### Usage
 
