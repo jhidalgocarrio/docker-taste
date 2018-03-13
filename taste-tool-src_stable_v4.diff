@@ -17,14 +17,21 @@ Index: DMT/asn2dataModel/python_A_mapper.py
 ===================================================================
 --- DMT/asn2dataModel/python_A_mapper.py	(revision 8056)
 +++ DMT/asn2dataModel/python_A_mapper.py	(working copy)
-@@ -96,7 +96,7 @@
+@@ -90,13 +90,13 @@
+     # where "-equal" is passed - the _Equal functions will be generated
+     # and used during comparisons of incoming TMs (For MSCs)
+
+-    mono_exe = "mono " if sys.argv[0].endswith('.py') and sys.platform.startswith('linux') else ""
++    mono_exe = "mono " if sys.platform.startswith('linux') else ""
+     Makefile.write('''
+ ifeq ($(ASN2DATAMODEL),)
  ASN2DATAMODEL:=asn2dataModel
  endif
  ifeq ($(ASN1SCC),)
 -ASN1SCC:=asn1.exe
 +ASN1SCC:=$(DMT)/asn1scc/asn1.exe
  endif
- 
+
  PREFIX:=`taste-config --prefix`/share/
 Index: DMT/commonPy/asnParser.py
 ===================================================================
